@@ -1,15 +1,17 @@
 const express=require("express")
 require("./mongooseConnection")
-const port = 3000;
+const port = 3001;
 const userRoutes= require("./routes/userRoutes")
 const recordRoutes= require("./routes/recordRoutes")
 const orderRoutes= require("./routes/orderRoutes")
 const createError = require("http-errors")
-const {cors, printTime, clgValue} = require('./middlewares/CustomMiddlewares')
+// const {cors, printTime, clgValue} = require('./middlewares/CustomMiddlewares')
+const cors = require('cors')
 const {auth} = require('./middlewares/Auth')
 //create express server
 const app = express()
-app.use(cors)
+
+app.use(cors({origin:"*", exposedHeaders: "x-auth"}))
 //express middleware
 //parsing req.body
 app.use(express.json())
@@ -17,8 +19,8 @@ app.use(express.json())
 //external middleware
 /* app.use(logger("combined")) */
 
-app.use(printTime)
-app.use(clgValue)
+// app.use(printTime)
+// app.use(clgValue)
 
 //Endpoints / routes
 app.get("/",(req,res)=>{

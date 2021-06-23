@@ -97,7 +97,8 @@ exports.loginUser = async (req, res, next) => {
         next(new createError.NotFound('password does not match'))
       } else {
         const token = jwt.sign({id: user._id, email: user.email}, 'secretkey')
-        res.header('x-auth', token)
+        res.header('x-auth', token) // key name + the value of the key
+        console.log(token)
         res.send({success: true, message: "authenticated"})
       }
     }
